@@ -28,90 +28,68 @@ int main(int argc,char** argv)
     
     // Main Program 
     sllnode* header = NULL;
-    char input; 
-    while(1)
+    int input = 9;
+    int value = 0;
+
+    while(input != 0)
     {
-        printf("Enter Q To Exit.\n");
-        
-        if (header == NULL)
-        {
-            printf("Enter 1 To Create a linked list.\n");
-        }
-        printf("Enter 2 To insert an element to the linked list.\n");
-        printf("Enter 3 To delete an element from the linked list.\n");
-        printf("Enter 4 To search for an element in the linked list.\n");
-        printf("Enter 5 to print the linked list\n");
-        
-        input = getc(stdin);
-        
-        if (input == '1' && header == NULL)
-        {
-            // prompt to enter a value to insert
-            printf("Enter a value to insert: ");
-            int value; 
-            scanf("%d", &value);
-            
-            header = create(value);
-        }
-        else if (input == '1' && header != NULL)
-        {
-            printf("You already created a linked list.\n");
-            continue; 
-        }
-        else if ((input == '2' || input == '3' 
-                || input == '4' || input == '5') && header == NULL)
-        {
-            printf("You need to create a header first.\n");
-            continue;
-        }
-        else if (input == '2' && header != NULL)
-        {
-            printf("Enter the value you want to insert: ");
-            int value; 
-            scanf("%d", &value);
-            
-            header = insert(header, value);
-            if (header == NULL)
-            {
-                printf("Error while inserting\n");
-                destroy(header);
-                return 1;
-            }
-        }
-        else if (input == '3' && header != NULL)
-        {
-            printf("Enter the value you want to delete from the linked list.\n");
-            int value; 
-            scanf("%d", &value);
-            delete_node(header, value);
-        }
-        else if (input == '4' && header != NULL)
-        {
-            printf("Enter the key you are searching for: ");
-            int value; 
-            scanf("%d", &value);
-            if (search(header, value))
-            {
-                printf("The element was found");
-            }
-            else 
-            {
-                printf("The element was not found");
-            }
-        }
-        else if (input == '5' && header != NULL)
-        {
-            print(header);
-        }
-        else if(input == 'q')
-        {
-            break;
-        }
-        else 
-        {
-            printf("Invalid opition\n");
-            continue;
-        }
+    	printf("Choose an opition\n");
+    	if (header == NULL)
+    	{
+    		printf("1. Create new head.\n");
+    	}
+    	printf("2. Insert new value.\n");
+    	printf("3. Search for a value.\n");
+    	printf("4. Delete a value.\n");
+    	printf("5. Print the linked list.\n");
+		printf("Enter 0 to exit\n");
+    	// read the input 
+    	scanf("%d", &input);
+
+    	// first read the input 
+    	switch(input)
+    	{
+    		case 1:
+    			printf("Input: ");
+    			scanf("%d", &value);
+    			header = create(value);
+    			break;
+
+			case 2: 
+				printf("Input: ");
+				scanf("%d", &value);
+				header = insert(header, value);
+				break;				
+
+			case 3: 
+				printf("Input: ");
+    			scanf("%d", &value);
+    			if (search(header, value))
+    				{
+    					printf("Found\n");
+    				}
+    				else 
+    				{
+    					printf("Not Found\n");
+    				}
+				break;
+			case 4:
+				printf("Input: ");
+    			scanf("%d", &value);
+    			header = delete_node(header, value);
+    			break;
+
+    		case 5:
+    			print(header);
+    			break;
+
+			default:
+			{
+				continue;
+			}
+
+    	}
+
     }
     
     // free the linked list 
